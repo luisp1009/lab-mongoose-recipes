@@ -15,9 +15,47 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
+  .then (() =>{
+    return Recipe.create(
+      {
+        "title": "Ceviche",
+        "level": "Amateur",
+        "ingredients": [
+          "fish",
+          "lime juice",
+          "onions",
+          "corn",
+          "salt and pepper",
+          "rocoto pepper",
+          "ginger",
+          "garlic"
+        ],
+        "cuisine": "Peruvian",
+        "dishType": "main dish",
+        "image": "https://www.feastingathome.com/wp-content/uploads/2015/04/Ceviche-11.jpg",
+        "duration": 20,
+        "creator": "Luis Paredes"
+      }
+    )
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+  .then(() => {
+    return Recipe.insertMany(data)
+  } )
+
+  .then(() => {
+    return Recipe.findOneAndUpdate(
+      { title: "Chocolate Chip Cookies" },
+      { duration: 30 }
+    );
+  })
+  .then(() => {
+    return Recipe.deleteOne({ title: "Asian Glazed Chicken Thighs" });
+  })
+  .then(() => {
+    return mongoose.connection.close();
+  })
+
+  
+  .catch((err))
+
+ 
